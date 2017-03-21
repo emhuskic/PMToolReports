@@ -1,16 +1,12 @@
 package com.pmtool.controllers;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+
 import java.util.Date;
+
 
 import java.util.List;
 
-import java.util.Arrays;
-
 import java.text.SimpleDateFormat;
 import com.pmtool.models.Report;
-import com.pmtool.models.ResponseModel;
 import com.pmtool.models.ReportDao;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -45,20 +41,17 @@ public class ReportController {
 
     }
 
-    //@RequestMapping("/delete")
-    //@ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
-    public ResponseEntity<Report> Delete(@PathVariable("id") Long id) {
-   // public String delete(long id) {
+    @RequestMapping("/delete")
+    @ResponseBody
+    public String delete(long id) {
     try{
-
         Report report = new Report(id);
         reportDao.delete(report);
-        return new ResponseEntity(HttpStatus.OK);
     }
     catch (Exception ex){
-        return new ResponseEntity(new ResponseModel(ex.toString()), HttpStatus.NOT_FOUND);
+        return "Error deleting the report: " + ex.toString();
     }
+    return "Report succesfully deleted!";
 }
 
 
@@ -67,7 +60,7 @@ public class ReportController {
     public String getByName(String name) {
         String reportId="";
         try {
-            List<Report> reports = reportDao.findByName(name);
+            List<Report>reports = reportDao.findByName(name);
             Report report=reports.get(0);
             reportId=String.valueOf(report.getId());
         }
