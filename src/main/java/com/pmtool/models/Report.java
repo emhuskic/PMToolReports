@@ -31,6 +31,7 @@ public class Report {
     public Report(){}
     public Report (long id) {
         this.id=id;
+        this.setCreatedOn(new Date());
     }
     public Report(String name, Date CreatedOn) {
         this.name=name;
@@ -67,8 +68,8 @@ public class Report {
         this.Project = value;
     }
 
-    public String getCreatedOn() {
-        return CreatedOn.toString();
+    public Date getCreatedOn() {
+        return this.CreatedOn;
     }
 
     public void setCreatedOn(Date value) {
